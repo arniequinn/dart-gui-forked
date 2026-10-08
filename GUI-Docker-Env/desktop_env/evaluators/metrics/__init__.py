@@ -158,3 +158,5 @@ from .vscode import (
 
 def infeasible():
     pass
+
+from .archicad import archicad_check_passed

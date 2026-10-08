@@ -1,0 +1,68 @@
+{
+  "id": "archicad-pilot-03-layer-flags",
+  "snapshot": "archicad",
+  "instruction": "In Archicad, hide the layer PILOT-HIDE and lock the layer PILOT-LOCK. Do not change any other layer.",
+  "source": "pilot task, written for this project",
+  "config": [
+    {
+      "type": "execute",
+      "parameters": {
+        "command": [
+          "cmd",
+          "/c",
+          "mkdir C:\\pilot\\out"
+        ],
+        "shell": false
+      }
+    },
+    {
+      "type": "launch",
+      "parameters": {
+        "command": [
+          "C:\\Program Files\\GRAPHISOFT\\Archicad 26\\Archicad 26.exe",
+          "C:\\pilot\\pilot_base.pln"
+        ],
+        "shell": false
+      }
+    },
+    {
+      "type": "sleep",
+      "parameters": {
+        "seconds": 120
+      }
+    },
+    {
+      "type": "execute",
+      "parameters": {
+        "command": [
+          "python",
+          "C:\\pilot\\archicad_check.py",
+          "mark"
+        ],
+        "shell": false
+      }
+    }
+  ],
+  "trajectory": "trajectories/archicad-pilot-03-layer-flags",
+  "related_apps": [
+    "archicad"
+  ],
+  "evaluator": {
+    "func": "archicad_check_passed",
+    "result": {
+      "type": "archicad_check",
+      "check": "layer_flags",
+      "args": {
+        "hide": "PILOT-HIDE",
+        "lock": "PILOT-LOCK"
+      }
+    }
+  },
+  "proxy": false,
+  "fixed_ip": false,
+  "possibility_of_env_change": "low",
+  "pilot": {
+    "tier": 1,
+    "note": "Needs layers PILOT-HIDE and PILOT-LOCK, both visible and unlocked at start."
+  }
+}

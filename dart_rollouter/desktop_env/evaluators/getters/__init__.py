@@ -40,3 +40,5 @@ from .replay import get_replay
 from .vlc import get_vlc_playing_info, get_vlc_config, get_default_video_player
 from .vscode import get_vscode_config
 from .calc import get_conference_city_in_order
+
+from .archicad import get_archicad_check

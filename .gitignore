@@ -172,4 +172,4 @@ node_modules/
 tests/osworld/
 scripts
 
-examples/osworld/async/run_trainer_debug_w_rollout_stepwise_train_pt_huoshan.sh
+examples/osworld/async/run_trainer_debug_w_rollout_stepwise_train_pt_huoshan.shsmoke_test_out/

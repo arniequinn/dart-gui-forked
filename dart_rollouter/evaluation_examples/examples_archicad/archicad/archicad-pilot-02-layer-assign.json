@@ -1,0 +1,68 @@
+{
+  "id": "archicad-pilot-02-layer-assign",
+  "snapshot": "archicad",
+  "instruction": "In Archicad, select every column in the project and move all of them to the layer S-COL-TYPICAL. Do not change any other element.",
+  "source": "pilot task, written for this project",
+  "config": [
+    {
+      "type": "execute",
+      "parameters": {
+        "command": [
+          "cmd",
+          "/c",
+          "mkdir C:\\pilot\\out"
+        ],
+        "shell": false
+      }
+    },
+    {
+      "type": "launch",
+      "parameters": {
+        "command": [
+          "C:\\Program Files\\GRAPHISOFT\\Archicad 26\\Archicad 26.exe",
+          "C:\\pilot\\pilot_base.pln"
+        ],
+        "shell": false
+      }
+    },
+    {
+      "type": "sleep",
+      "parameters": {
+        "seconds": 120
+      }
+    },
+    {
+      "type": "execute",
+      "parameters": {
+        "command": [
+          "python",
+          "C:\\pilot\\archicad_check.py",
+          "mark"
+        ],
+        "shell": false
+      }
+    }
+  ],
+  "trajectory": "trajectories/archicad-pilot-02-layer-assign",
+  "related_apps": [
+    "archicad"
+  ],
+  "evaluator": {
+    "func": "archicad_check_passed",
+    "result": {
+      "type": "archicad_check",
+      "check": "layer_assign",
+      "args": {
+        "layer": "S-COL-TYPICAL",
+        "types": "Column"
+      }
+    }
+  },
+  "proxy": false,
+  "fixed_ip": false,
+  "possibility_of_env_change": "low",
+  "pilot": {
+    "tier": 2,
+    "note": "Needs layer S-COL-TYPICAL and columns in the pilot project."
+  }
+}
