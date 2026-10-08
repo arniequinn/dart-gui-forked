@@ -1,0 +1,21 @@
+remote_docker_server:
+  ip: "127.0.0.1"                      # IP of this environment server
+  port: 50003
+  path_to_vm: "/absolute/path/to/Ubuntu.qcow2"   # or the Windows+Archicad image, see docs/windows_archicad.md
+
+  # VM sizing (defaults are for the small Ubuntu image; Windows + Archicad needs much more)
+  # vm_ram_size: "16G"
+  # vm_cpu_cores: "6"
+  # vm_disk_size: "80G"
+  # docker_image: "happysixd/osworld-docker"
+  # vm_extra_env: {}                   # extra variables for the QEMU container, unverified for Windows
+
+# Token-based quota configuration: token name -> allowed concurrent VMs
+tokens:
+  dart: 2
+
+# Authentication settings for the remote docker server API
+auth:
+  require_token: true
+  header_name: "Authorization"
+  bearer_prefix: "Bearer "

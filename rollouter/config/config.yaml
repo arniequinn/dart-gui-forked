@@ -15,10 +15,10 @@ storage:
     max_texts: &max_texts 35   # 最多保留的文本条数
 
 model:
-  ckpt_path: &default_ckpt_path "/data/liuyang/ByteDance-Seed/UI-TARS-1.5-7B"
+  ckpt_path: &default_ckpt_path "/path/to/UI-TARS-1.5-7B"
   # "/workspace/codes/verl/checkpoints/verl_osworld_grpo/test_1118_no_DA_20251119_e4zfxzsk/global_step_12/actor/huggingface" # "/data/liuyang/ByteDance-Seed/UI-TARS-1.5-7B"
   # "/workspace/huggingface/dart-gui-7b"
-  replicas:   2
+  replicas:   1   # one per GPU; a single 24 GB card fits one replica
   save_local: True # save local means save the [pt, images, msgs, reward] to volcano machine
   base_port:  8000
   host: &service_host "0.0.0.0"
@@ -28,8 +28,8 @@ model:
   vllm_params:
     gpu_memory_utilization: 0.9
 env:
-  server_url: &server "http://47.93.220.59:4999"
-  user_token: &token "7W7sE4pR2tY84I1oP3zX5cV9bN6mK0L"
+  server_url: &server "http://<ENV_SERVER_IP>:<PORT>"   # your own environment server
+  user_token: &token "<YOUR_TOKEN>"   # token name from GUI-Docker-Env configs/config.yaml; do not commit real tokens
 
 coordinator:
   max_concurrent_envs: 20   # 最大并行启动的环境数量
@@ -57,7 +57,7 @@ runner:
     env_type: "desktop_env" # or remote_desktop 
 
   prelaunched_model:    # 分支方案，未成功获取vllm serve端口时，读取已启动的模型端口，用于测试
-    base_url: "https://sv-98272fdc-4f22-4a25-ba0e-7d51a37448d3-8000-x-defau-51acffd7d9.sproxy.hd-01.alayanew.com:22443/v1"
+    base_url: "http://localhost:8000/v1"
     model: "ui_tars_1.5"
     frequency_penalty: 1
     max_tokens: 500
