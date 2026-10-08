@@ -56,3 +56,19 @@ Start vLLM first for the `model` stage, starting with a short context (see risk 
 ## Measuring the pilot
 
 For each task, run the untouched model at least 20 times and record success rate, steps used and time. Agree the pass targets with the design lead before starting rather than after seeing results. Review every output by hand during the pilot.
+
+## Zero-shot grounding check (ScreenSpot-Pro)
+
+Run this first on the new box, before the Archicad pilot. It scores UI-TARS on professional high-resolution software, including a CAD group, and tells us whether the model can find small buttons at all.
+
+```bash
+pip install pillow huggingface_hub
+python scripts/screenspot_pro_eval.py --download --data-dir data/ScreenSpot-Pro   # about 3.4 GB, MIT licence
+python scripts/screenspot_pro_eval.py --data-dir data/ScreenSpot-Pro --limit 20   # quick check
+python scripts/screenspot_pro_eval.py --data-dir data/ScreenSpot-Pro              # CAD group
+```
+
+- Uses the rollouter's own prompt and coordinate convention (smart_resize pixels mapped back to the original).
+- A full-size screenshot is up to 16,384 image tokens. Start vLLM with `--max-model-len` of 18000 or more, or lower `--max-pixels` (less accuracy on tiny targets; record the value).
+- Tested only against a fake server so far: prompt, downscale, coordinate mapping, scoring and summaries. NOT tested: the real dataset's field names beyond what its published eval script reads, the `group` value used for `--group cad`, or the real model's output format.
+- Writes `screenspot_pro_out/results.jsonl` and `summary.json`.

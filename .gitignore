@@ -172,4 +172,7 @@ node_modules/
 tests/osworld/
 scripts
 
-examples/osworld/async/run_trainer_debug_w_rollout_stepwise_train_pt_huoshan.shsmoke_test_out/
+examples/osworld/async/run_trainer_debug_w_rollout_stepwise_train_pt_huoshan.sh
+smoke_test_out/
+screenspot_pro_out/
+data/ScreenSpot-Pro/
